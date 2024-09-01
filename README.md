@@ -1,50 +1,24 @@
-# React + TypeScript + Vite
+# Tick Tock 🕰️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## An event countdown web application
 
-Currently, two official plugins are available:
+Tick tock is mobile-ready and offline ready.
+Built and Powered by ![Vite+React](https://media.dev.to/cdn-cgi/image/width=1080,height=1080,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F3xdgj7v9vhogcr37ar7b.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Set a countdown timer as far as December 31, 2100
+- Add a background music in your countdown via Youtube and Spotify
+- Set a background for your countdown (.mp4 and .gif)
+- See the timer on the tab when it is not active
+- Set the font style via Google Fonts
+- Light and Dark modes
+- Set the color of the timer or have it adjust to whatever is in the background
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Of all the countdown sites I've ventured, I haven't encountered one where it doesn't overwhelm the user with inputs, have music and non-static background. I want to create an event countdown timer that user can immediately tell where to set their countdown, set a background music they wish and background that symbolizes the upcoming event.
 
-- Configure the top-level `parserOptions` property like this:
+My background music and background are resource efficient and will not slow your computer down.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## License
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+NONE!
