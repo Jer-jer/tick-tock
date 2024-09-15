@@ -1,13 +1,17 @@
-import React from "react";
+// Components
+import Countdown from "../../components/CountdownTimer";
+
+// Interfaces
+import { CountdownTimerProps } from "../../interface/CountdownTimer";
 
 // Styles
 import "./index.scss";
 
-function CountdownTimer() {
+function CountdownTimer({ targetDate }: CountdownTimerProps) {
   return (
-    <div className="text-[9vw] md:text-[85px] transition-all duration-700 ease-in-out">
-      000:00:00:00.000
-    </div>
+    <>
+      <Countdown targetDate={targetDate} />
+    </>
   );
 }
 

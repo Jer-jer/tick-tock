@@ -1,11 +1,7 @@
-// @tailwind base;
-// @tailwind components;
-// @tailwind utilities;
-
 @layer tailwind-base, primereact, tailwind-utilities;
 
 /* IMPORTANT: In "styled" mode you must add the PrimeReact Theme here. Do NOT include in "unstyled" mode */
-@import 'primereact/resources/themes/lara-dark-purple/theme.css' layer(primereact);
+@import 'primereact/resources/themes/mdc-light-deeppurple/theme.css' layer(primereact);
 
 @layer tailwind-base {
   @tailwind base;
@@ -14,6 +10,19 @@
 @layer tailwind-utilities {
   @tailwind components;
   @tailwind utilities;
+}
+
+body {
+  /**
+  ? This is a mobile-first approach to responsive design.
+  */
+  min-width: 320px;
+  min-height: 100vh;
+
+  height: 100%;
+  width: 100%;
+
+  margin: 0 auto;
 }
 
 :root {
@@ -30,16 +39,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
 
-html {
-  margin: 0;
-  height: 100%;
-  width: 100%;
-}
-
-body {
-  // This is a mobile-first approach
-  min-width: 320px;
-  min-height: 100vh;
+  // max-width: 1280px;
+  max-height: 100vh;
 }

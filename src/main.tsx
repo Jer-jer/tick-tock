@@ -5,6 +5,9 @@ import { PrimeReactProvider } from "primereact/api";
 //App
 import App from "./App.tsx";
 
+//Assets
+import "primeicons/primeicons.css";
+
 //Styles
 import "./index.scss";
 

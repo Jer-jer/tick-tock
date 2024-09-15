@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -10,13 +10,24 @@ import CountdownTimer from "./page/CountdownTimer";
 import "./App.scss";
 
 function App() {
+  const [hiddenNavbar, setHiddenNavbar] = useState(false);
+
+  const handleNavbarDisplay = () => setHiddenNavbar(!hiddenNavbar);
+
   return (
     <>
-      <div className="flex justify-center absolute">
-        <Navbar />
+      <div
+        className={`${
+          hiddenNavbar ? "top-[2%] -translate-y-full" : "translate-y-0"
+        } navbar-container absolute h-[64px] w-full transition-transform duration-500 ease-in-out`}
+      >
+        <Navbar
+          hiddenNavbar={hiddenNavbar}
+          handleNavbarDisplay={handleNavbarDisplay}
+        />
       </div>
       <div className="flex justify-center items-center h-[100vh]">
-        <CountdownTimer />
+        <CountdownTimer targetDate="2024-10-16T13:00:00.000Z" />
       </div>
     </>
   );

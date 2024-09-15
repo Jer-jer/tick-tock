@@ -1,0 +1,35 @@
+.p-menubar-root-list {
+    .p-menuitem-text {
+        font-family: "Jura", sans-serif;
+    }
+
+    .p-menuitem-content:hover {
+        background: #683ab71d;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .p-menubar {
+        justify-content: flex-start;
+    }
+
+    .p-menubar-root-list {
+        display: none;
+    }
+
+    .p-menubar-button {
+        display: flex;
+    }
+
+    .p-menubar.p-menubar-mobile-active .p-menubar-root-list {
+        display: flex;
+        flex-direction: column;
+        top: 100%;
+        left: 0;
+        z-index: 1;
+    }
+
+    .nav-collapse-button {
+        display: none;
+    }
+}
