@@ -5,9 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2024-11-13
+
+### Minor changes
+
+- Added a sound icon that enables and disables music (mute/unmute music)
+- Fixed the issue where the navbar is not showing on width < 960 px
+
 ## [1.0.0] - 2024-09-15
 
-### Majoy changes
+### Major changes
 
 - Added Prime React Library
 - Added Prime Icons Library

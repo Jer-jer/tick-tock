@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 // Interfaces
 import { CountdownTimerProps } from "../../interface/CountdownTimer";
 
+// Styles
+import "./index.scss";
+
 /*
   ? Function to calculate the remaining time
   @param {string --- ISO Date String} targetDate - The target date to countdown to
@@ -12,11 +15,19 @@ const getTimeRemaining = (targetDate: string) => {
   const now = new Date();
   const total = Date.parse(targetDate) - Date.parse(now.toISOString());
 
-  const days = Math.floor(total / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((total / 1000 / 60) % 60);
-  const seconds = Math.floor((total / 1000) % 60);
-  const milliseconds = total % 1000;
+  const days = Math.floor(total / (1000 * 60 * 60 * 24))
+    .toString()
+    .padStart(2, "0");
+  const hours = Math.floor((total / (1000 * 60 * 60)) % 24)
+    .toString()
+    .padStart(2, "0");
+  const minutes = Math.floor((total / 1000 / 60) % 60)
+    .toString()
+    .padStart(2, "0");
+  const seconds = Math.floor((total / 1000) % 60)
+    .toString()
+    .padStart(2, "0");
+  const milliseconds = (total % 1000).toString().padStart(3, "0");
 
   return {
     total,
@@ -48,7 +59,7 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
   }, [targetDate]);
 
   return (
-    <>
+    <div className="countdown-font">
       {timeLeft.total > 0 ? (
         <div className="text-[9vw] md:text-[85px] transition-all duration-700 ease-in-out">
           {timeLeft.days}:{timeLeft.hours}:{timeLeft.minutes}:{timeLeft.seconds}
@@ -59,6 +70,6 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
           000:00:00:00.000
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -1,10 +1,18 @@
 .p-menubar-root-list {
+    .p-menuitem {
+        border-radius: 5px;
+    }
+
     .p-menuitem-text {
         font-family: "Jura", sans-serif;
     }
 
     .p-menuitem-content:hover {
         background: #683ab71d;
+    }
+
+    .p-focus {
+        background: #683ab787;
     }
 }
 
