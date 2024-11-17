@@ -11,8 +11,10 @@
         background: #683ab71d;
     }
 
-    .p-focus {
-        background: #683ab787;
+    .p-focus,
+    .p-menuitem-link:focus,
+    .p-menuitem-content {
+        background: transparent;
     }
 }
 

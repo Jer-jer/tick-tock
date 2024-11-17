@@ -1,3 +1,5 @@
+import { SetStateAction, Dispatch } from "react";
+
 //Components
 import { Menubar } from "primereact/menubar";
 import { MenuItem } from "primereact/menuitem";
@@ -6,36 +8,47 @@ import { MenuItem } from "primereact/menuitem";
 import "primeicons/primeicons.css";
 
 //Styles
-import "./index.scss";
+import "./styles.scss";
 
 interface NavbarProps {
   hiddenNavbar: boolean;
-  handleNavbarDisplay: () => void;
   browserWidth: number;
+
+  setShowUpdateTimerModal: Dispatch<SetStateAction<boolean>>;
+  setShowChangeBgModal: Dispatch<SetStateAction<boolean>>;
+  setShowUpdateMusicModal: Dispatch<SetStateAction<boolean>>;
+
+  handleNavbarDisplay: () => void;
 }
 
 function Navbar({
   hiddenNavbar,
-  handleNavbarDisplay,
   browserWidth,
+  setShowUpdateTimerModal,
+  setShowChangeBgModal,
+  setShowUpdateMusicModal,
+  handleNavbarDisplay,
 }: NavbarProps) {
   const items: MenuItem[] = [
     {
       label: "Update Timer",
       command: () => {
         console.log("Update Timer Opened");
+        setShowUpdateTimerModal(true);
       },
     },
     {
       label: "Change Background",
       command: () => {
         console.log("Change Background Opened");
+        setShowChangeBgModal(true);
       },
     },
     {
       label: "Update Music",
       command: () => {
         console.log("Update Music Opened");
+        setShowUpdateMusicModal(true);
       },
     },
   ];
@@ -46,7 +59,7 @@ function Navbar({
         title="Close Menu"
         className={`${
           !hiddenNavbar && "bg-white"
-        } left-[50%] absolute top-[64%] flex justify-center items-center rounded-full w-11 h-11 cursor-pointer nav-collapse-button`}
+        } left-[48.55%] absolute top-[64%] flex justify-center items-center rounded-full w-11 h-11 cursor-pointer nav-collapse-button`}
         onClick={handleNavbarDisplay}
       >
         <i

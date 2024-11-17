@@ -1,5 +1,5 @@
 // Styles
-import "./index.scss";
+import "./styles.scss";
 
 interface MuteProps {
   isMuted: boolean;
