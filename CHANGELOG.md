@@ -5,24 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.1] - 2024-11-18
+## [1.0.5] - 2024-11-18
 
 ### Minor changes
+
+- Added background music that can be played on the countdown via react-player
+- Set the background music to loop
+- Used the mute button to mute and unmute the background music
+- Saved the background music in local storage so it plays on every page load
+- Added a modal to update the background music
+- Made the modal responsive
+- Music is set on mute on the first load so it can autoplay, browsers have autoplay restrictions due to bad devs :< 
+
+## [1.0.4] - 2024-11-18
+
+### Patch changes
 
 - Saved every new countdown in local storage
 - Countdown in local storage is now being used on every page load
 - local storage countdown is updated when the countdown is updated
 - If the local storage is empty (ergo no countdown value) the countdown is set to now
-- Countdown is officially working
-
-## [1.1.0] - 2024-11-17
-
-### Major changes
-
-- Added countdown
 
 ### Minor changes
 
+- Finished adding countdown with full functionality
+- Adjusted mute button on the right spacing on screens that are 320px to 630px wide
+- Added Update Countdown Timer modal
+- Made Update Countdown Timer modal responsive
+
+## [1.0.3] - 2024-11-17
+
+### Minor changes
+
+- Started adding a countdown with full functionality
 - Fixed issue where chevron icon and the countdown timer seemingly not on the center
 
 ## [1.0.2] - 2024-11-17

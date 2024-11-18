@@ -14,22 +14,22 @@
 
 .mute-container .mute {
     position: absolute;
+    display: none;
     animation: keyframes-fill .5s;
 }
 
 .mute-container .voice {
     position: absolute;
-    display: none;
     animation: keyframes-fill .5s;
 }
 
 /* ------ On check event ------ */
 .mute-container input:checked~.mute {
-    display: none;
+    display: block;
 }
 
 .mute-container input:checked~.voice {
-    display: block;
+    display: none;
 }
 
 /* ------ Hide the default checkbox ------ */

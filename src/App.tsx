@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 // Components
+import ReactPlayer from "react-player";
 import Navbar from "./components/Navbar";
 import Mute from "./components/Mute";
 import { Dialog } from "primereact/dialog";
@@ -20,7 +21,6 @@ import "./App.scss";
 
 function App() {
     const [hiddenNavbar, setHiddenNavbar] = useState(false);
-    const [mute, setMute] = useState(false);
     const [browserWidth, setBrowserWidth] = useState<number>(window.innerWidth);
 
     /** MODAL RELATED STATES **/
@@ -40,8 +40,20 @@ function App() {
         new Date().toISOString()
     );
 
+    // Music States
+    const [url, setUrl] = useState<string>("");
+    const [playLink, setPlayLink] = useState<string | null>(null);
+    const [mute, setMute] = useState(true);
+    const [isPaused, setIsPaused] = useState<boolean>(false);
+
     useEffect(() => {
         const storedCountdown = localStorage.getItem("countdown");
+        const storedMusic = localStorage.getItem("music");
+
+        if (storedMusic) {
+            setPlayLink(storedMusic);
+        }
+
         if (storedCountdown) {
             const date = new Date(storedCountdown);
             setCountdown(storedCountdown);
@@ -64,6 +76,8 @@ function App() {
         };
     }, []);
 
+    const handleNavbarDisplay = () => setHiddenNavbar(!hiddenNavbar);
+
     const formatTargetDate = (
         newMonth: string,
         newYear: string,
@@ -81,8 +95,6 @@ function App() {
         return date.toISOString();
     };
 
-    const handleNavbarDisplay = () => setHiddenNavbar(!hiddenNavbar);
-    const handleMute = () => setMute(!mute);
     const handleDayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         // Allow only numbers and limit to 2 characters
@@ -113,6 +125,14 @@ function App() {
             setCountdown(newCountdown);
             localStorage.setItem("countdown", newCountdown);
         }
+    };
+
+    // Music Functions
+    const handleMute = () => setMute(!mute);
+    const handleMusicChange = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setPlayLink(url);
+        localStorage.setItem("music", url);
     };
 
     return (
@@ -147,8 +167,9 @@ function App() {
 
             {/* Update Countdown Modal */}
             <Dialog
-                className="w-[38%]"
+                className="top-[15%] w-[85%] md:w-[77%] lg:w-[56%] xl:w-[38%] min-h-[236px] update-countdown-modal"
                 header="Update Countdown"
+                position="top"
                 visible={showUpdateTimerModal}
                 onHide={() => {
                     if (!showUpdateTimerModal) return;
@@ -176,7 +197,7 @@ function App() {
                             </div>
                         </div>
 
-                        <div className="flex flex-row justify-start items-center gap-5 timer-form">
+                        <div className="flex flex-col justify-start items-start gap-5 timer-form">
                             {switchCalendar ? (
                                 <div className="flex flex-row items-center gap-2">
                                     <label htmlFor="date">Date:</label>
@@ -194,7 +215,7 @@ function App() {
                                 </div>
                             ) : (
                                 <>
-                                    <div className="flex flex-row items-center gap-2 max-w-[19%]">
+                                    <div className="flex flex-row items-center gap-2 max-w-[45%] md:max-w-[19%]">
                                         <label htmlFor="date">Year:</label>
                                         <Calendar
                                             className="h-[40px] year-input"
@@ -206,7 +227,7 @@ function App() {
                                             required
                                         />
                                     </div>
-                                    <div className="flex flex-row items-center gap-2 max-w-[30%]">
+                                    <div className="flex flex-row items-center gap-2 max-w-[70%] md:max-w-[30%]">
                                         <label htmlFor="date">Month:</label>
                                         <Calendar
                                             className="h-[40px]"
@@ -218,7 +239,7 @@ function App() {
                                             required
                                         />
                                     </div>
-                                    <div className="flex flex-row items-center gap-2 max-w-[15%]">
+                                    <div className="flex flex-row items-center gap-2 max-w-[35%] md:max-w-[15%]">
                                         <label htmlFor="date">Day:</label>
                                         <InputText
                                             type="text"
@@ -229,12 +250,22 @@ function App() {
                                             required
                                         />
                                     </div>
+                                    <div className="flex flex-row items-center gap-2 max-w-[50%] md:max-w-[21%]">
+                                        <label htmlFor="date">Time:</label>
+                                        <Calendar
+                                            name="time"
+                                            value={time}
+                                            onChange={(e) => setTime(e.value)}
+                                            timeOnly
+                                            required
+                                        />
+                                    </div>
                                 </>
                             )}
                         </div>
-                        {!switchCalendar && (
+                        {/* {!switchCalendar && (
                             <div className="flex flex-row justify-start items-center gap-5 countdown-location-form">
-                                <div className="flex flex-row items-center gap-2 max-w-[43%]">
+                                <div className="flex flex-row items-center gap-2 max-w-[50%] md:max-w-[43%]">
                                     <label htmlFor="date">Time:</label>
                                     <Calendar
                                         name="time"
@@ -245,7 +276,7 @@ function App() {
                                     />
                                 </div>
                             </div>
-                        )}
+                        )} */}
 
                         {/* //TODO Maybe or maybe not add this */}
                         {/* <div className="flex flex-row justify-start items-center gap-5 countdown-location-form">
@@ -267,6 +298,58 @@ function App() {
                     </div>
                 </form>
             </Dialog>
+
+            {/* Change Music Modal */}
+            <Dialog
+                className="top-[15%] w-[85%] md:w-[77%] lg:w-[56%] xl:w-[38%] min-h-fit update-countdown-modal"
+                header="Update Music"
+                position="top"
+                visible={showUpdateMusicModal}
+                onHide={() => {
+                    if (!showUpdateMusicModal) return;
+                    setShowUpdateMusicModal(false);
+                }}
+            >
+                <form onSubmit={handleMusicChange}>
+                    <div className="flex flex-row items-center max-w-full music-url-container">
+                        <InputText
+                            type="text"
+                            name="music-url"
+                            placeholder="Enter desired link here"
+                            value={url}
+                            onChange={(e) => setUrl(e.target.value)}
+                            required
+                        />
+                        <Button
+                            className="bg-violet px-[0.75rem] py-[0.75rem] w-fit h-fit text-white music-save-button"
+                            label="Save"
+                            type="submit"
+                            onClick={() => setShowUpdateMusicModal(false)}
+                            autoFocus
+                        />
+                    </div>
+                </form>
+            </Dialog>
+
+            {/* <BackgroundMusicPlayer /> */}
+            <div className="hidden music-player">
+                {playLink && (
+                    <ReactPlayer
+                        config={{
+                            youtube: {
+                                playerVars: {
+                                    autoplay: 1,
+                                },
+                            },
+                        }}
+                        url={playLink}
+                        playing={true}
+                        loop={true}
+                        volume={1}
+                        muted={mute}
+                    />
+                )}
+            </div>
         </>
     );
 }

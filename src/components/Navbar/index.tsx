@@ -31,17 +31,17 @@ function Navbar({
 }: NavbarProps) {
     const items: MenuItem[] = [
         {
+            label: "Update Countdown",
+            command: () => {
+                console.log("Update Countdown Opened");
+                setShowUpdateTimerModal(true);
+            },
+        },
+        {
             label: "Change Background",
             command: () => {
                 console.log("Change Background Opened");
                 setShowChangeBgModal(true);
-            },
-        },
-        {
-            label: "Update Countdown Timer",
-            command: () => {
-                console.log("Update Timer Opened");
-                setShowUpdateTimerModal(true);
             },
         },
         {

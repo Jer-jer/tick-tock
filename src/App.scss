@@ -9,6 +9,23 @@
     z-index: 1000;
 }
 
+.update-countdown-modal {
+    transition: height 0.3s ease-in-out
+}
+
+@media screen and (max-width: 630px) {
+    .music-container {
+        right: 11%;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    .timer-form {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
 //Switch Toggle
 .checkbox-apple {
     position: relative;
@@ -70,19 +87,37 @@
     height: 25px;
 }
 
+// Input as a whole
+input {
+    width: 1%;
+    padding: 10.5px;
+    border-width: 1px;
+    border-color: theme('colors.violet');
+}
+
 // Countdown Form
 .countdown-form {
     input {
-        width: 1%;
         flex: 1 1 auto;
-        padding: 10.5px;
-        border-width: 1px;
-        border-color: theme('colors.violet');
     }
 }
 
 .p-datepicker-monthpicker {
     .p-datepicker-group-container {
         display: none;
+    }
+}
+
+// Music Form
+.music-url-container {
+    input {
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        width: 100%;
+    }
+
+    .music-save-button {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
     }
 }
