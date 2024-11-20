@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import * as Worker from "worker-timers";
 
 // Interfaces
 import { CountdownTimerProps } from "../../interface/CountdownTimer";
@@ -43,32 +44,20 @@ const getTimeRemaining = (targetDate: string) => {
 export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
     const [isTabActive, setIsTabActive] = useState<boolean>(true);
     const [timeLeft, setTimeLeft] = useState(getTimeRemaining(targetDate));
-    const requestRef = useRef<number>();
 
-    const updateTimer = () => {
-        const remainingTime = getTimeRemaining(targetDate);
-        setTimeLeft(remainingTime);
-
-        // If the countdown is complete, stop the animation frame
-        if (remainingTime.total > 0) {
-            requestRef.current = requestAnimationFrame(updateTimer);
-        }
-    };
-
-    // Update the title when the tab is active/inactive
+    /** TAB VISIBILITY HANDLER **/ 
     useEffect(() => {
         // Set the initial title when the component mounts
         document.title = "TickTock";
 
         // Listen for visibility changes
         const handleVisibilityChange = () => {
-            if (document.hidden) {
-                setIsTabActive(false);
-            } else {
-                setIsTabActive(true);
-                document.title = `${timeLeft.days}:${timeLeft.hours}:${timeLeft.minutes}:${timeLeft.seconds}`;
-            }
+            setIsTabActive(!document.hidden);
         };
+
+        if (!isTabActive) {
+            document.title = `${timeLeft.days}:${timeLeft.hours}:${timeLeft.minutes}:${timeLeft.seconds}`;
+        }
 
         // Attach event listener for visibility change
         document.addEventListener("visibilitychange", handleVisibilityChange);
@@ -80,27 +69,29 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
                 handleVisibilityChange
             );
         };
-    }, [timeLeft]);
-
-    // Update the title when the countdown is running, but only if the tab is inactive
-    useEffect(() => {
-        // Update the title when the countdown is running, but only if the tab is inactive
-        if (!isTabActive) {
-            document.title = `${timeLeft.days}:${timeLeft.hours}:${timeLeft.minutes}:${timeLeft.seconds}`;
-        }
     }, [timeLeft, isTabActive]);
 
-    // Update the countdown timer
     useEffect(() => {
-        requestRef.current = requestAnimationFrame(updateTimer);
+        const timeLeft = localStorage.getItem("timeLeft");
+        if (timeLeft) {
+            setTimeLeft(JSON.parse(timeLeft));
+        }
+    }, [])
 
-        // Clear the animation frame when the component is unmounted
-        return () => {
-            if (requestRef.current) {
-                cancelAnimationFrame(requestRef.current);
+    /** MAIN COUNTDOWN TIMER **/
+    useEffect(() => {
+        const interval = Worker.setInterval(() => {
+            const newTime = getTimeRemaining(targetDate);
+            localStorage.setItem("timeLeft", JSON.stringify(newTime));
+            setTimeLeft(newTime);
+
+            if (timeLeft.total <= 0) {
+                Worker.clearInterval(interval);
             }
-        };
-    }, [targetDate]);
+        }, 10);
+
+        return () => Worker.clearInterval(interval);
+    }, [targetDate])
 
     return (
         <div className="mt-[4.8%] countdown-font">

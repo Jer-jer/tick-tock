@@ -33,7 +33,7 @@ function App() {
     const [switchCalendar, setSwitchCalendar] = useState(false);
     const [month, setMonth] = useState<Nullable<Date>>(null);
     const [year, setYear] = useState<Nullable<Date>>(null);
-    const [day, setDay] = useState<string>("0");
+    const [day, setDay] = useState<string>("");
     const [time, setTime] = useState<Nullable<Date>>(null);
     const [datetime24h, setDateTime24h] = useState<Nullable<Date>>(null);
     const [countdown, setCountdown] = useState<string>(
@@ -78,13 +78,14 @@ function App() {
 
     const handleNavbarDisplay = () => setHiddenNavbar(!hiddenNavbar);
 
+    //TODO Add a error handling here that checks for invalid dates
     const formatTargetDate = (
         newMonth: string,
         newYear: string,
         newDay: string,
         newTime: string
     ) => {
-        const dayProper = Number(newDay) + 1;
+        const dayProper = Number(newDay);
         const formattedDay = dayProper.toString().padStart(2, "0");
 
         // Create a Date object using the provided values
@@ -92,17 +93,19 @@ function App() {
             `${newMonth} ${formattedDay}, ${newYear} ${newTime}:00`
         );
 
+        console.log(newMonth, date)
+
         return date.toISOString();
     };
-
+    
     const handleDayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
+
         // Allow only numbers and limit to 2 characters
         if (/^\d{0,2}$/.test(value)) {
             // Pad the value to 2 characters if necessary
-            const paddedValue = value.padStart(2, "0");
-            setDay(paddedValue);
-        }
+            setDay(value);
+        } 
     };
 
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -191,12 +194,12 @@ function App() {
                                     onChange={() =>
                                         setSwitchCalendar(!switchCalendar)
                                     }
-                                    required
                                 />
                                 <label htmlFor="check-apple"></label>
                             </div>
                         </div>
 
+                        {/* //TODO: Add Zod and React Hook Forms */}
                         <div className="flex flex-col justify-start items-start gap-5 timer-form">
                             {switchCalendar ? (
                                 <div className="flex flex-row items-center gap-2">
@@ -243,7 +246,7 @@ function App() {
                                         <label htmlFor="date">Day:</label>
                                         <InputText
                                             type="text"
-                                            name="location"
+                                            name="day"
                                             value={day}
                                             onChange={handleDayChange}
                                             maxLength={2}

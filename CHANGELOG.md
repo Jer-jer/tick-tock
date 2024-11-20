@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.5] - 2024-11-18
+## [0.0.6] - 2024-11-20
+
+### Minor changes
+
+- Reverted back the timer to using `setInterval` rather than `requestAnimationFrame` due to the following:
+    - Discovered native/vanilla setInterval and `requestAnimationFrame` will still stop when tab is inactive due to browsers throttling them to preserve performance and efficiency leading the timers to be usynced to real-time or inaccurate
+    - Discovered "Web Workers" and how they allow scripts being run on the background independently from any user interface scripts, Web Workers basically allows to bypass throttling (more information here: https://html.spec.whatwg.org/multipage/workers.html#introduction-14)
+- Used worker-timers library to utilize the Web Workers for the timer
+- Added feature that the tab shows the timer when inactive
+
+## [0.0.5] - 2024-11-18
 
 ### Minor changes
 
@@ -17,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Made the modal responsive
 - Music is set on mute on the first load so it can autoplay, browsers have autoplay restrictions due to bad devs :< 
 
-## [1.0.4] - 2024-11-18
+## [0.0.4] - 2024-11-18
 
 ### Patch changes
 
@@ -33,14 +43,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Update Countdown Timer modal
 - Made Update Countdown Timer modal responsive
 
-## [1.0.3] - 2024-11-17
+## [0.0.3] - 2024-11-17
 
 ### Minor changes
 
 - Started adding a countdown with full functionality
 - Fixed issue where chevron icon and the countdown timer seemingly not on the center
 
-## [1.0.2] - 2024-11-17
+## [0.0.2] - 2024-11-17
 
 ### Minor changes
 
@@ -48,14 +58,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Smoothed the animation of the millisecond timer by changing from `setInterval` to `requestAnimationFrame`
 - Renamed component SCSS files from index.scss to style.scss
 
-## [1.0.1] - 2024-11-13
+## [0.0.1] - 2024-11-13
 
 ### Minor changes
 
 - Added a sound icon that enables and disables music (mute/unmute music)
 - Fixed the issue where the navbar is not showing on width < 960 px
 
-## [1.0.0] - 2024-09-15
+## [0.0.0] - 2024-09-15
 
 ### Major changes
 
