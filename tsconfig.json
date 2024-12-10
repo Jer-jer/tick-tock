@@ -1,7 +1,16 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+	"files": [],
+	"references": [
+		{ "path": "./tsconfig.app.json" },
+		{ "path": "./tsconfig.node.json" }
+	],
+	"compilerOptions": {
+		"forceConsistentCasingInFileNames": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./*"],
+			"@/components/*": ["./src/components/*"]
+		},
+		"strict": true
+	}
 }
