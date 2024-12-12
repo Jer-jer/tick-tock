@@ -21,7 +21,8 @@ export const handleFileUpload = async (
 
 		// Check file size
 		const isImage = file.type.startsWith("image");
-		const maxSize = 5 * 1080 * 1080; // 5MB for media
+		const maxSize = 5000000; // 5MB for media
+		console.log("File size:", file.size, "Max size:", maxSize);
 		if (file.size > maxSize) {
 			alert(`File size exceeds the limit of 5MB.`);
 			return;
@@ -46,6 +47,7 @@ export const handleFileUpload = async (
 		reader.onload = () => {
 			const result = reader.result as string;
 			setBackground(result);
+			console.log("Result after storing in localStorage:", result);
 			localStorage.setItem("background", result); // Save to local storage
 		};
 		reader.readAsDataURL(file);

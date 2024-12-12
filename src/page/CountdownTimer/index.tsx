@@ -7,10 +7,16 @@ import { CountdownTimerProps } from "@/features/countdown/interfaces/CountdownTi
 // Styles
 import "./index.scss";
 
-function CountdownTimer({ targetDate }: CountdownTimerProps) {
+function CountdownTimer({
+	targetDate,
+	countdownFontColor,
+}: CountdownTimerProps) {
 	return (
 		<>
-			<Countdown targetDate={targetDate} />
+			<Countdown
+				targetDate={targetDate}
+				countdownFontColor={countdownFontColor}
+			/>
 		</>
 	);
 }

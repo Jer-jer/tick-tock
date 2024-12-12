@@ -1,3 +1,4 @@
 export interface CountdownTimerProps {
-  targetDate: string;
+	targetDate: string;
+	countdownFontColor: string;
 }

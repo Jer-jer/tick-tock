@@ -1,0 +1,23 @@
+.modal {
+   top: 15%;
+   width: 85%;
+   min-height: fit-content;
+}
+
+@media (min-width: 768px) {
+   .modal {
+      width: 77%;
+   }
+}
+
+@media (min-width: 1024px) {
+   .modal {
+      width: 56%;
+   }
+}
+
+@media (min-width: 1280px) {
+   .modal {
+      width: 38%;
+   }
+}

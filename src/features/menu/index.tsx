@@ -13,7 +13,7 @@ import "./styles.scss";
 interface MenuProps {
 	hiddenNavbar: boolean;
 	browserWidth: number;
-
+	countdownFontColor: string;
 	setShowUpdateTimerModal: Dispatch<SetStateAction<boolean>>;
 	setShowChangeBgModal: Dispatch<SetStateAction<boolean>>;
 	setShowUpdateMusicModal: Dispatch<SetStateAction<boolean>>;
@@ -24,6 +24,7 @@ interface MenuProps {
 export default function Menu({
 	hiddenNavbar,
 	browserWidth,
+	countdownFontColor,
 	setShowUpdateTimerModal,
 	setShowChangeBgModal,
 	setShowUpdateMusicModal,
@@ -65,16 +66,19 @@ export default function Menu({
 				<i
 					className={`z-50 text-xl ${
 						hiddenNavbar
-							? "pi pi-chevron-down"
+							? "pi pi-chevron-down navbar-icon-shadow"
 							: "pi pi-chevron-up"
 					}`}
+					style={{
+						color: `${hiddenNavbar ? countdownFontColor : "#000000"}`,
+					}}
 				/>
 			</div>
 
 			<Menubar
 				className={`${
 					browserWidth > 960 && hiddenNavbar && "-top-[100%]"
-				} absolute justify-center bg-white border-none w-full`}
+				} absolute justify-center bg-white rounded-none border-none w-full`}
 				model={items}
 			/>
 		</>

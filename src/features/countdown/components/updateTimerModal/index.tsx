@@ -58,8 +58,6 @@ export default function UpdateTimer({
 			`${newMonth} ${formattedDay}, ${newYear} ${newTime}:00`
 		);
 
-		console.log(newMonth, date);
-
 		return date.toISOString();
 	};
 
@@ -98,9 +96,10 @@ export default function UpdateTimer({
 
 	return (
 		<Dialog
-			className="top-[15%] w-[85%] md:w-[77%] lg:w-[56%] xl:w-[38%] min-h-[236px] update-countdown-modal"
+			className="modal"
 			header="Update Countdown"
 			position="top"
+			draggable={false}
 			visible={showUpdateTimerModal}
 			onHide={() => {
 				if (!showUpdateTimerModal) return;

@@ -29,9 +29,10 @@ export default function UpdateMusic({
 
 	return (
 		<Dialog
-			className="top-[15%] w-[85%] md:w-[77%] lg:w-[56%] xl:w-[38%] min-h-fit update-countdown-modal"
+			className="min-h-fit modal"
 			header="Update Music"
 			position="top"
+			draggable={false}
 			visible={showUpdateMusicModal}
 			onHide={() => {
 				if (!showUpdateMusicModal) return;

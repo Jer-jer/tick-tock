@@ -41,7 +41,10 @@ const getTimeRemaining = (targetDate: string) => {
 	};
 };
 
-export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
+export default function CountdownTimer({
+	targetDate,
+	countdownFontColor,
+}: CountdownTimerProps) {
 	const [isTabActive, setIsTabActive] = useState<boolean>(true);
 	const [timeLeft, setTimeLeft] = useState(getTimeRemaining(targetDate));
 
@@ -95,7 +98,12 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
 	}, [targetDate]);
 
 	return (
-		<div className="mt-[4.8%] countdown-font">
+		<div
+			className={`mt-[4.8%] countdown-font`}
+			style={{
+				color: countdownFontColor,
+			}}
+		>
 			{timeLeft.total > 0 ? (
 				<div className="flex justify-center items-center w-fit transition-all duration-700 ease-in-out">
 					<span className="w-[12ch] text-[9vw] md:text-[85px] timer">

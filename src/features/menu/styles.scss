@@ -18,6 +18,10 @@
     }
 }
 
+.navbar-icon-shadow {
+    text-shadow: 1px 1px 3px #000;
+}
+
 @media screen and (max-width: 960px) {
     .p-menubar {
         justify-content: flex-start;

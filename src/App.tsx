@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { Nullable } from "primereact/ts-helpers";
 
+// Interfaces
+import { IPexelsResponse } from "@/features/background/interfaces";
+
 // Components
 import Menu from "@/features/menu";
 import Mute from "@/features/music/components/controls";
-import BackgroundCustomizer from "@/features/background/components";
 import UpdateTimerModal from "@/features/countdown/components/updateTimerModal";
 import UpdateMusicModal from "@/features/music/components/updateMusicModal";
+import UpdateBgModal from "@/features/background/components/updateBgModal";
 import MusicPlayer from "@/features/music/components/player";
 
 // Pages
@@ -40,6 +43,13 @@ function App() {
 	const [countdown, setCountdown] = useState<string>(
 		new Date().toISOString()
 	);
+	const [countdownFontColor, setCountdownFontColor] =
+		useState<string>("#000000");
+
+	// Background States
+	const [backgroundQuery, setBackgroundQuery] = useState<string>("");
+	const [backgroundMedia, setBackgroundMedia] = useState<string>("");
+	const [images, setImages] = useState<IPexelsResponse[]>([]);
 
 	// Music States
 	const [url, setUrl] = useState<string>("");
@@ -49,6 +59,8 @@ function App() {
 
 	useEffect(() => {
 		const storedCountdown = localStorage.getItem("countdown");
+		const background = localStorage.getItem("background");
+		const countdownColor = localStorage.getItem("countdownColor");
 
 		if (storedCountdown) {
 			const date = new Date(storedCountdown);
@@ -58,6 +70,14 @@ function App() {
 			setDay(date.getDate().toString().padStart(2, "0"));
 			setTime(date);
 			setDateTime24h(date);
+		}
+
+		if (background) {
+			setBackgroundMedia(background);
+		}
+
+		if (countdownColor) {
+			setCountdownFontColor(countdownColor);
 		}
 
 		const handleResize = () => {
@@ -75,7 +95,14 @@ function App() {
 	const handleNavbarDisplay = () => setHiddenNavbar(!hiddenNavbar);
 
 	return (
-		<>
+		<div
+			className="app-container"
+			style={{
+				background: backgroundMedia
+					? `url(${backgroundMedia}) center/cover no-repeat`
+					: undefined,
+			}}
+		>
 			<div
 				className={`${
 					browserWidth > 960 &&
@@ -90,10 +117,15 @@ function App() {
 					setShowUpdateTimerModal={setShowUpdateTimerModal}
 					setShowChangeBgModal={setShowChangeBgModal}
 					setShowUpdateMusicModal={setShowUpdateMusicModal}
+					countdownFontColor={countdownFontColor}
 				/>
 			</div>
+
 			<div className="flex justify-center items-center min-h-[90vh]">
-				<CountdownTimer targetDate={countdown} />
+				<CountdownTimer
+					targetDate={countdown}
+					countdownFontColor={countdownFontColor}
+				/>
 			</div>
 
 			{/* <BackgroundMusicPlayer /> */}
@@ -142,8 +174,19 @@ function App() {
 				setPlayLink={setPlayLink}
 			/>
 
+			<UpdateBgModal
+				showChangeBgModal={showChangeBgModal}
+				backgroundQuery={backgroundQuery}
+				images={images}
+				setBackgroundMedia={setBackgroundMedia}
+				setShowChangeBgModal={setShowChangeBgModal}
+				setBackgroundQuery={setBackgroundQuery}
+				setImages={setImages}
+				setCountdownFontColor={setCountdownFontColor}
+			/>
+
 			{/* <BackgroundCustomizer /> */}
-		</>
+		</div>
 	);
 }
 

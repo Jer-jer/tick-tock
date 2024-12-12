@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.8] - 2024-12-12
+
+### Minor changes
+
+- Integrated Pexels API to search for images
+- Readjusted timer to adjust text color based on image background
+- Added a couple more fixes and improvements
+
+
 ## [0.0.7] - 2024-12-09
 
 ### Minor changes
@@ -19,8 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Minor changes
 
 - Reverted back the timer to using `setInterval` rather than `requestAnimationFrame` due to the following:
-    - Discovered native/vanilla setInterval and `requestAnimationFrame` will still stop when tab is inactive due to browsers throttling them to preserve performance and efficiency leading the timers to be usynced to real-time or inaccurate
-    - Discovered "Web Workers" and how they allow scripts being run on the background independently from any user interface scripts, Web Workers basically allows to bypass throttling (more information here: https://html.spec.whatwg.org/multipage/workers.html#introduction-14)
+  - Discovered native/vanilla setInterval and `requestAnimationFrame` will still stop when tab is inactive due to browsers throttling them to preserve performance and efficiency leading the timers to be usynced to real-time or inaccurate
+  - Discovered "Web Workers" and how they allow scripts being run on the background independently from any user interface scripts, Web Workers basically allows to bypass throttling (more information here: https://html.spec.whatwg.org/multipage/workers.html#introduction-14)
 - Used worker-timers library to utilize the Web Workers for the timer
 - Added feature that the tab shows the timer when inactive
 
@@ -85,6 +94,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.0] - 2024-09-15
 
-I have finally started working on the Event Countdown project!
-
-Not just initializing the files, I've added the navigation bar and the countdown timer.
+- Finally started working on the Event Countdown project!
+- Added the navigation bar and the countdown timer.
