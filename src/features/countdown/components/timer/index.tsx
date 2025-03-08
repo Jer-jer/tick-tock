@@ -60,7 +60,10 @@ export default function CountdownTimer({
 
 		// Update the title when the tab is inactive
 		if (!isTabActive) {
-			document.title = `${timeLeft.days}:${timeLeft.hours}:${timeLeft.minutes}:${timeLeft.seconds}`;
+			document.title =
+				timeLeft.total > 0
+					? `${timeLeft.days}:${timeLeft.hours}:${timeLeft.minutes}:${timeLeft.seconds}`
+					: "TickTock";
 		}
 
 		// Attach event listener for visibility change
@@ -113,7 +116,7 @@ export default function CountdownTimer({
 					</span>
 				</div>
 			) : (
-				<div className="inline-block w-[13.6ch] transition-all duration-700 ease-in-out">
+				<div className="flex justify-center items-center w-[13.6ch] transition-all duration-700 ease-in-out">
 					<span className="text-[9vw] md:text-[85px]">
 						000:00:00:00.000
 					</span>

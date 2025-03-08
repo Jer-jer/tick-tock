@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
-import { Dialog } from "primereact/dialog";
-import { InputText } from "primereact/inputtext";
+import Modal from "@/common/components/modal";
+import Input from "@/common/components/input";
 import { Button } from "primereact/button";
 
 import "./styles.scss";
@@ -28,8 +28,8 @@ export default function UpdateMusic({
 	};
 
 	return (
-		<Dialog
-			className="min-h-fit modal"
+		<Modal
+			className="min-h-fit"
 			header="Update Music"
 			position="top"
 			draggable={false}
@@ -41,13 +41,12 @@ export default function UpdateMusic({
 		>
 			<form onSubmit={handleMusicChange}>
 				<div className="flex flex-row items-center max-w-full max-h-[40px] music-url-container">
-					<InputText
+					<Input
 						type="text"
 						name="music-url"
 						placeholder="Enter desired link here"
 						value={url}
 						onChange={(e) => setUrl(e.target.value)}
-						required
 					/>
 					<Button
 						className="bg-violet px-[0.75rem] py-[0.5rem] w-fit h-fit text-white music-save-button"
@@ -58,6 +57,6 @@ export default function UpdateMusic({
 					/>
 				</div>
 			</form>
-		</Dialog>
+		</Modal>
 	);
 }

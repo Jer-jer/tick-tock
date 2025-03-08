@@ -1,15 +1,16 @@
 import { createContext, Dispatch, SetStateAction } from "react";
 
-import { IPexelsResponse } from "@/features/background/interfaces";
+import { IPexelsPhoto, IPixabayVideo } from "@/features/background/interfaces";
 
 interface BackgroundMediaContextProps {
-	images: IPexelsResponse[];
+	images: IPexelsPhoto[];
+	videos: IPixabayVideo[];
 	backgroundQuery: string;
 	setBackgroundMedia: Dispatch<SetStateAction<string>>;
-	setImages: Dispatch<SetStateAction<IPexelsResponse[]>>;
+	setImages: Dispatch<SetStateAction<IPexelsPhoto[]>>;
+	setVideos: Dispatch<SetStateAction<IPixabayVideo[]>>;
 	setBackgroundQuery: Dispatch<SetStateAction<string>>;
 	setCountdownFontColor: Dispatch<SetStateAction<string>>;
-	LoadingIcon: React.FC;
 }
 
 export const BackgroundMediaContext = createContext<

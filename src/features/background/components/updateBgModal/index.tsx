@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
 
 // Interfaces
-import { IPexelsResponse } from "@/features/background/interfaces";
+import { IPexelsPhoto, IPixabayVideo } from "@/features/background/interfaces";
 
 // Components
-import { Dialog } from "primereact/dialog";
+import Modal from "@/common/components/modal";
+import ImageGrid from "@/features/background/components/mediaGrid/imagesGrid";
 import { TabView, TabPanel } from "primereact/tabview";
 import { Button } from "primereact/button";
-import ImagesGrid from "@/features/background/components/imagesGrid";
 
 // State/Context
 import { BackgroundMediaContext } from "@/features/background/state/backgroundMedia";
@@ -17,11 +17,13 @@ import "./styles.scss";
 
 interface UpdateBgModalProps {
 	showChangeBgModal: boolean;
-	images: IPexelsResponse[];
+	images: IPexelsPhoto[];
+	videos: IPixabayVideo[];
 	backgroundQuery: string;
 	setShowChangeBgModal: Dispatch<SetStateAction<boolean>>;
 	setBackgroundMedia: Dispatch<SetStateAction<string>>;
-	setImages: Dispatch<SetStateAction<IPexelsResponse[]>>;
+	setImages: Dispatch<SetStateAction<IPexelsPhoto[]>>;
+	setVideos: Dispatch<SetStateAction<IPixabayVideo[]>>;
 	setBackgroundQuery: Dispatch<SetStateAction<string>>;
 	setCountdownFontColor: Dispatch<SetStateAction<string>>;
 }
@@ -29,19 +31,15 @@ interface UpdateBgModalProps {
 export default function UpdateBgModal({
 	showChangeBgModal,
 	images,
+	videos,
 	backgroundQuery,
 	setShowChangeBgModal,
 	setBackgroundMedia,
 	setImages,
+	setVideos,
 	setBackgroundQuery,
 	setCountdownFontColor,
 }: UpdateBgModalProps) {
-	const LoadingIcon: React.FC = () => (
-		<svg className="h-[24px] loading" viewBox="25 25 50 50">
-			<circle r="20" cy="50" cx="50"></circle>
-		</svg>
-	);
-
 	const removeBackground = () => {
 		setBackgroundMedia("");
 		setCountdownFontColor("#000000");
@@ -50,7 +48,7 @@ export default function UpdateBgModal({
 	};
 
 	const DialogHeader = () => (
-		<div className="flex items-end gap-4">
+		<div className="flex md:flex-row flex-col items-start md:items-end md:gap-4">
 			<span>Update Background</span>
 			<Button
 				className="hover:bg-transparent p-0 pb-[0.3rem] font-light text-violet text-xs"
@@ -65,15 +63,16 @@ export default function UpdateBgModal({
 		<BackgroundMediaContext.Provider
 			value={{
 				images,
+				videos,
 				backgroundQuery,
 				setBackgroundMedia,
 				setImages,
+				setVideos,
 				setBackgroundQuery,
 				setCountdownFontColor,
-				LoadingIcon,
 			}}
 		>
-			<Dialog
+			<Modal
 				className="!top-[5%] modal"
 				header={<DialogHeader />}
 				position="top"
@@ -85,7 +84,7 @@ export default function UpdateBgModal({
 			>
 				<TabView>
 					<TabPanel header="Image">
-						<ImagesGrid />
+						<ImageGrid />
 					</TabPanel>
 					<TabPanel header="Video">
 						<p className="m-0">
@@ -118,7 +117,7 @@ export default function UpdateBgModal({
 						</p>
 					</TabPanel>
 				</TabView>
-			</Dialog>
+			</Modal>
 		</BackgroundMediaContext.Provider>
 	);
 }

@@ -2,7 +2,9 @@ import axios from "axios";
 
 const PEXELS_API_KEY = import.meta.env.VITE_PEXELS_API_KEY;
 
-export const axiosService = (req: string, api: string) => {
+type APIResource = "pexels" | "pixabay";
+
+export const axiosService = (req: string, api: APIResource) => {
 	return axios.create({
 		baseURL: `${
 			api === "pexels"

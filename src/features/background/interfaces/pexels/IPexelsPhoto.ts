@@ -9,7 +9,7 @@ interface PexelPhotoSource {
 	tiny: string;
 }
 
-export interface IPexelsResponse {
+export interface IPexelsPhoto {
 	id: number;
 	width: number;
 	height: number;

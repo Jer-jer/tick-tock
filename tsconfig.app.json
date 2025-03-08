@@ -24,7 +24,13 @@
 		"noUncheckedSideEffectImports": true,
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["./src/*"]
+			"@/*": ["./src/*"],
+			"@/common/*": ["./src/common/*"],
+			"@/features/*": ["./src/features/*"],
+			"@/background/*": ["./src/features/background/*"],
+			"@/countdown/*": ["./src/features/countdown/*"],
+			"@/menu/*": ["./src/features/menu/*"],
+			"@/music/*": ["./src/features/music/*"]
 		}
 	},
 	"include": ["src"]

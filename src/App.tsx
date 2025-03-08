@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Nullable } from "primereact/ts-helpers";
 
 // Interfaces
-import { IPexelsResponse } from "@/features/background/interfaces";
+import { IPexelsPhoto, IPixabayVideo } from "@/features/background/interfaces";
 
 // Components
 import Menu from "@/features/menu";
@@ -49,7 +49,8 @@ function App() {
 	// Background States
 	const [backgroundQuery, setBackgroundQuery] = useState<string>("");
 	const [backgroundMedia, setBackgroundMedia] = useState<string>("");
-	const [images, setImages] = useState<IPexelsResponse[]>([]);
+	const [images, setImages] = useState<IPexelsPhoto[]>([]);
+	const [videos, setVideos] = useState<IPixabayVideo[]>([]);
 
 	// Music States
 	const [url, setUrl] = useState<string>("");
@@ -178,14 +179,14 @@ function App() {
 				showChangeBgModal={showChangeBgModal}
 				backgroundQuery={backgroundQuery}
 				images={images}
+				videos={videos}
 				setBackgroundMedia={setBackgroundMedia}
 				setShowChangeBgModal={setShowChangeBgModal}
 				setBackgroundQuery={setBackgroundQuery}
 				setImages={setImages}
+				setVideos={setVideos}
 				setCountdownFontColor={setCountdownFontColor}
 			/>
-
-			{/* <BackgroundCustomizer /> */}
 		</div>
 	);
 }
