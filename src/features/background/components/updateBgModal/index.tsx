@@ -1,11 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
 
 // Interfaces
-import { IPexelsPhoto, IPixabayVideo } from "@/features/background/interfaces";
+import { IPixabayVideo } from "@/features/background/interfaces";
 
 // Components
 import Modal from "@/common/components/modal";
-import ImageGrid from "@/features/background/components/mediaGrid/imagesGrid";
+import ImagesGrid from "@/features/background/components/imagesGrid";
+import VideosGrid from "@/features/background/components/videosGrid";
+import ColorWheel from "@/features/background/components/colorWheel";
 import { TabView, TabPanel } from "primereact/tabview";
 import { Button } from "primereact/button";
 
@@ -17,27 +19,19 @@ import "./styles.scss";
 
 interface UpdateBgModalProps {
 	showChangeBgModal: boolean;
-	images: IPexelsPhoto[];
 	videos: IPixabayVideo[];
-	backgroundQuery: string;
 	setShowChangeBgModal: Dispatch<SetStateAction<boolean>>;
 	setBackgroundMedia: Dispatch<SetStateAction<string>>;
-	setImages: Dispatch<SetStateAction<IPexelsPhoto[]>>;
 	setVideos: Dispatch<SetStateAction<IPixabayVideo[]>>;
-	setBackgroundQuery: Dispatch<SetStateAction<string>>;
 	setCountdownFontColor: Dispatch<SetStateAction<string>>;
 }
 
 export default function UpdateBgModal({
 	showChangeBgModal,
-	images,
 	videos,
-	backgroundQuery,
 	setShowChangeBgModal,
 	setBackgroundMedia,
-	setImages,
 	setVideos,
-	setBackgroundQuery,
 	setCountdownFontColor,
 }: UpdateBgModalProps) {
 	const removeBackground = () => {
@@ -62,13 +56,9 @@ export default function UpdateBgModal({
 	return (
 		<BackgroundMediaContext.Provider
 			value={{
-				images,
 				videos,
-				backgroundQuery,
 				setBackgroundMedia,
-				setImages,
 				setVideos,
-				setBackgroundQuery,
 				setCountdownFontColor,
 			}}
 		>
@@ -84,37 +74,13 @@ export default function UpdateBgModal({
 			>
 				<TabView>
 					<TabPanel header="Image">
-						<ImageGrid />
+						<ImagesGrid />
 					</TabPanel>
 					<TabPanel header="Video">
-						<p className="m-0">
-							Sed ut perspiciatis unde omnis iste natus
-							error sit voluptatem accusantium doloremque
-							laudantium, totam rem aperiam, eaque ipsa
-							quae ab illo inventore veritatis et quasi
-							architecto beatae vitae dicta sunt explicabo.
-							Nemo enim ipsam voluptatem quia voluptas sit
-							aspernatur aut odit aut fugit, sed quia
-							consequuntur magni dolores eos qui ratione
-							voluptatem sequi nesciunt. Consectetur,
-							adipisci velit, sed quia non numquam eius
-							modi.
-						</p>
+						<VideosGrid />
 					</TabPanel>
 					<TabPanel header="Color">
-						<p className="m-0">
-							Sed ut perspiciatis unde omnis iste natus
-							error sit voluptatem accusantium doloremque
-							laudantium, totam rem aperiam, eaque ipsa
-							quae ab illo inventore veritatis et quasi
-							architecto beatae vitae dicta sunt explicabo.
-							Nemo enim ipsam voluptatem quia voluptas sit
-							aspernatur aut odit aut fugit, sed quia
-							consequuntur magni dolores eos qui ratione
-							voluptatem sequi nesciunt. Consectetur,
-							adipisci velit, sed quia non numquam eius
-							modi.
-						</p>
+						<ColorWheel />
 					</TabPanel>
 				</TabView>
 			</Modal>

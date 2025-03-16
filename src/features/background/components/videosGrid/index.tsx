@@ -9,7 +9,13 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Tooltip } from "primereact/tooltip";
 
 // Interfaces
-import { IPexelsResponseData, IPexelsPhoto } from "../../../interfaces";
+import {
+	IPixabayResponseData,
+	IPixabayVideo,
+	IPixabayHit,
+	IPexelsResponseData,
+	IPexelsPhoto,
+} from "../../interfaces";
 
 // State
 import { BackgroundMediaContext } from "@/features/background/state/backgroundMedia";
@@ -18,32 +24,28 @@ import { BackgroundMediaContext } from "@/features/background/state/backgroundMe
 import { axiosService } from "@/features/background/service/axiosService";
 
 //Utils
-import { getTextColor } from "../../../utils/getTextColor";
+import { getTextColor } from "../../utils/getTextColor";
 
 import "primeicons/primeicons.css";
 import "./styles.scss";
 
-type ImageCacheBatch = {
+type VideoCacheBatch = {
 	page: number;
-	photos: IPexelsPhoto[];
+	videos: IPixabayVideo[];
 };
 
-export default function ImageGrid() {
+export default function VideosGrid() {
 	const [loading, setLoading] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(0);
-	const [imageCacheBatch, setImageCacheBatch] = useState<ImageCacheBatch[]>(
+	const [videoCacheBatch, setVideoCacheBatch] = useState<VideoCacheBatch[]>(
 		[]
 	);
-	const [images, setImages] = useState<IPexelsPhoto[]>([]);
+	const [videos, setVideos] = useState<IPixabayVideo[]>([]);
 	const [activePage, setActivePage] = useState(1); // Current page
+	const [backgroundQuery, setBackgroundQuery] = useState<string>("");
 
 	const backgroundMediaContext = useContext(BackgroundMediaContext);
-
-	// const images = backgroundMediaContext!.images;
-	const backgroundQuery = backgroundMediaContext!.backgroundQuery;
 	const setBackgroundMedia = backgroundMediaContext!.setBackgroundMedia;
-	const setBackgroundQuery = backgroundMediaContext!.setBackgroundQuery;
-	// const setImages = backgroundMediaContext!.setImages;
 	const setCountdownFontColor =
 		backgroundMediaContext!.setCountdownFontColor;
 
@@ -73,19 +75,30 @@ export default function ImageGrid() {
 	};
 
 	useEffect(() => {
-		const cached = imageCacheBatch.find(
+		const cached = videoCacheBatch.find(
 			(batch) => batch.page === activePage
 		);
 		if (cached) {
-			setImages(cached.photos);
+			setVideos(cached.videos);
 		}
-	}, [imageCacheBatch, activePage]);
+	}, [videoCacheBatch, activePage]);
 
-	const imageTemplate = (image: IPexelsPhoto) => {
+	const thumbnailTemplate = (item: IPixabayVideo) => {
+		return (
+			<LazyLoadImage
+				src={item.small.thumbnail}
+				alt="Video Thumbnail"
+				placeholderSrc={item.tiny.thumbnail}
+				loading="lazy"
+			/>
+		);
+	};
+
+	const videoTemplate = (video: IPixabayVideo) => {
 		return (
 			<>
 				<div
-					className={`m-0 p-0 ${loading && "pb-[10px]"} image-container`}
+					className={`m-0 p-0 ${loading && "pb-[10px]"} video-container`}
 				>
 					{/* <video
 						src="https://cdn.pixabay.com/video/2018/04/30/15922-267503898_medium.mp4"
@@ -103,7 +116,7 @@ export default function ImageGrid() {
 						<MoonLoader color="#000" size={80} />
 					) : (
 						<>
-							<LazyLoadImage
+							{/* <LazyLoadImage
 								className="block w-full cursor-pointer image"
 								onClick={() =>
 									setBackground(
@@ -115,9 +128,21 @@ export default function ImageGrid() {
 								alt={image.alt}
 								placeholderSrc={image.src.tiny}
 								loading="lazy"
+							/> */}
+							<video
+								src={video.small.url}
+								autoPlay
+								loop
+								muted
+								style={{
+									width: "100%",
+									height: "100%",
+									objectFit: "cover",
+									willChange: "transform",
+								}}
 							/>
 							<Tooltip
-								target=".image-container"
+								target=".video-container"
 								content="Set image as background"
 								mouseTrack
 								mouseTrackTop={20}
@@ -130,21 +155,14 @@ export default function ImageGrid() {
 		);
 	};
 
-	const thumbnailTemplate = (item: IPexelsPhoto) => {
-		return (
-			<LazyLoadImage
-				src={item.src.tiny}
-				alt={item.alt}
-				placeholderSrc={item.src.tiny}
-				loading="lazy"
-			/>
-		);
-	};
-
 	// Remove page manipulation from mediaAxiosInstance
+	//TODO Fix CORS (Response body is not available to scripts (Reason: CORS Missing Allow Origin)) Issue
 	const mediaAxiosInstance = (page: number) => {
-		const queryParams = `?query=${backgroundQuery}&orientation=landscape&page=${page}`;
-		return axiosService(queryParams, "pexels");
+		const PIXABAY_API_KEY = import.meta.env.VITE_PIXABAY_API_KEY;
+		const adjustedQuery = backgroundQuery.replace(" ", "+");
+		const queryParams = `?key=${PIXABAY_API_KEY}&q=${adjustedQuery}&min_width="1280"&min_height="720"&page=${page}&per_page=5`;
+
+		return axiosService(queryParams, "pixabay");
 	};
 
 	const fetchMedia = async (isFromSearch: boolean) => {
@@ -155,39 +173,41 @@ export default function ImageGrid() {
 
 		try {
 			const axiosInstance = mediaAxiosInstance(pageToFetch);
-			const res = await axiosInstance.get<IPexelsResponseData>("");
-			const pexelsData = res.data;
+			const res = await axiosInstance.get<IPixabayResponseData>("");
+			const pixabayData: IPixabayHit[] = res.data.hits;
+
+			let pixabayVideos: IPixabayVideo[] = [];
+
+			pixabayData.map((hit) => {
+				pixabayVideos.push(hit.videos);
+			});
 
 			if (!isFromSearch)
 				// Update cache first only if not from search
-				setImageCacheBatch((prev) => {
-					if (
-						prev.some(
-							(batch) => batch.page === pexelsData.page
-						)
-					)
+				setVideoCacheBatch((prev) => {
+					if (prev.some((batch) => batch.page === pageToFetch))
 						return prev;
 					return [
 						...prev,
 						{
-							page: pexelsData.page,
-							photos: pexelsData.photos,
+							page: pageToFetch,
+							videos: pixabayVideos,
 						},
 					];
 				});
 			else
 				// Replace cache if from search
-				setImageCacheBatch(() => {
+				setVideoCacheBatch(() => {
 					return [
 						{
-							page: pexelsData.page,
-							photos: pexelsData.photos,
+							page: pageToFetch,
+							videos: pixabayVideos,
 						},
 					];
 				});
 
 			// Update page state after cache update
-			setActivePage(pexelsData.page);
+			setActivePage(pageToFetch);
 
 			if (isFromSearch) setActiveIndex(0);
 		} catch (error) {
@@ -198,7 +218,7 @@ export default function ImageGrid() {
 	};
 
 	const onItemChange = async (index: number) => {
-		const isLastImage = activeIndex === images.length - 1;
+		const isLastImage = activeIndex === videos.length - 1;
 		const isFirstImage = activeIndex === 0;
 
 		// Next page navigation
@@ -207,7 +227,7 @@ export default function ImageGrid() {
 			setActiveIndex(0); // Reset to first image of new page
 		}
 		// Previous page navigation
-		else if (index === images.length - 1 && isFirstImage) {
+		else if (index === videos.length - 1 && isFirstImage) {
 			if (activePage > 1) {
 				setActivePage((prev) => prev - 1);
 				setActiveIndex(14); // Show last image of previous page
@@ -234,7 +254,7 @@ export default function ImageGrid() {
 						className="rounded-tr-none rounded-br-none !w-full"
 						type="text"
 						name="bg-url"
-						placeholder="Enter desired image here"
+						placeholder="Enter desired video here"
 						value={backgroundQuery}
 						onChange={(e) =>
 							setBackgroundQuery(e.target.value)
@@ -263,13 +283,13 @@ export default function ImageGrid() {
 					className="media-gallery"
 					activeIndex={activeIndex}
 					onItemChange={(e) => onItemChange(e.index)}
-					value={images}
+					value={videos}
 					responsiveOptions={responsiveOptions}
 					numVisible={5}
 					circular
 					style={{ maxWidth: "640px" }}
 					showItemNavigators
-					item={imageTemplate}
+					item={videoTemplate}
 					thumbnail={thumbnailTemplate}
 				/>
 			</div>

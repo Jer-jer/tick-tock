@@ -34,21 +34,18 @@ export default function Menu({
 		{
 			label: "Update Countdown",
 			command: () => {
-				console.log("Update Countdown Opened");
 				setShowUpdateTimerModal(true);
 			},
 		},
 		{
-			label: "Change Background", //TODO Add a an option where user can set the color(includes gradient option) of the background
+			label: "Change Background",
 			command: () => {
-				console.log("Change Background Opened");
 				setShowChangeBgModal(true);
 			},
 		},
 		{
 			label: "Update Music",
 			command: () => {
-				console.log("Update Music Opened");
 				setShowUpdateMusicModal(true);
 			},
 		},

@@ -1,8 +1,9 @@
 {
 	"name": "tick-tock",
 	"private": true,
-	"version": "0.0.10",
+	"version": "0.0.11",
 	"type": "module",
+	"proxy": "http://localhost:5173/",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc -b && vite build",
@@ -10,7 +11,9 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"2": "^3.0.0",
 		"@types/react-lazy-load-image-component": "^1.6.4",
+		"@types/tinycolor2": "^1.4.6",
 		"axios": "^1.7.9",
 		"primeicons": "^7.0.0",
 		"primereact": "^10.8.2",
@@ -21,6 +24,7 @@
 		"react-player": "^2.16.0",
 		"react-spinners": "^0.15.0",
 		"sass": "^1.77.8",
+		"tinycolor": "^0.0.1",
 		"worker-timers": "^8.0.11"
 	},
 	"devDependencies": {

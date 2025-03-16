@@ -6,7 +6,7 @@ export interface IPixabayHit {
 	type: string;
 	tags: string;
 	duration: number;
-	videos: IPixabayVideo[];
+	videos: IPixabayVideo;
 	views: number;
 	downloads: number;
 	likes: number;

@@ -5,7 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.0.10] - 2024-12-12
+## [0.0.11] - 2024-03-16
+
+### Minor changes
+
+- Added a feature that allows the user to set colors for the background
+- Set up feature that allows user to search for videos in Pixabay
+
+### ERROR
+
+- Received a CORS issue "Response body is not available to scripts (Reason: CORS Missing Allow Origin)" when using Pixabay API. Might use cors-anywhere to solve this issue.
+
+## [0.0.10] - 2024-02-28
 
 ### Minor changes
 

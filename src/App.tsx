@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Nullable } from "primereact/ts-helpers";
 
 // Interfaces
-import { IPexelsPhoto, IPixabayVideo } from "@/features/background/interfaces";
+import { IPixabayVideo } from "@/features/background/interfaces";
 
 // Components
 import Menu from "@/features/menu";
@@ -47,9 +47,7 @@ function App() {
 		useState<string>("#000000");
 
 	// Background States
-	const [backgroundQuery, setBackgroundQuery] = useState<string>("");
 	const [backgroundMedia, setBackgroundMedia] = useState<string>("");
-	const [images, setImages] = useState<IPexelsPhoto[]>([]);
 	const [videos, setVideos] = useState<IPixabayVideo[]>([]);
 
 	// Music States
@@ -100,7 +98,9 @@ function App() {
 			className="app-container"
 			style={{
 				background: backgroundMedia
-					? `url(${backgroundMedia}) center/cover no-repeat`
+					? backgroundMedia.startsWith("https")
+						? `url(${backgroundMedia}) center/cover no-repeat`
+						: backgroundMedia
 					: undefined,
 			}}
 		>
@@ -177,13 +177,9 @@ function App() {
 
 			<UpdateBgModal
 				showChangeBgModal={showChangeBgModal}
-				backgroundQuery={backgroundQuery}
-				images={images}
 				videos={videos}
 				setBackgroundMedia={setBackgroundMedia}
 				setShowChangeBgModal={setShowChangeBgModal}
-				setBackgroundQuery={setBackgroundQuery}
-				setImages={setImages}
 				setVideos={setVideos}
 				setCountdownFontColor={setCountdownFontColor}
 			/>
