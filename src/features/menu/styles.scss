@@ -23,6 +23,15 @@
 }
 
 @media screen and (max-width: 960px) {
+    .nav-collapse-button {
+        top: 47.6%;
+        left: 46.4%;
+    }
+
+    .nav-collapse-button {
+        display: flex;
+    }
+
     .p-menubar {
         justify-content: flex-start;
     }
@@ -41,9 +50,5 @@
         top: 100%;
         left: 0;
         z-index: 1;
-    }
-
-    .nav-collapse-button {
-        display: none;
     }
 }

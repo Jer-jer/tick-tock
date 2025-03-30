@@ -5,11 +5,12 @@ import { Nullable } from "primereact/ts-helpers";
 import { IPixabayVideo } from "@/features/background/interfaces";
 
 // Components
-import MusicFloatingActionButton from "@/features/countdown/components/musicButton";
+import MusicFloatingActionButton from "@/features/music/components/button";
 import Menu from "@/features/menu";
 import UpdateTimerModal from "@/features/countdown/components/updateTimerModal";
 import UpdateMusicModal from "@/features/music/components/updateMusicModal";
 import UpdateBgModal from "@/features/background/components/updateBgModal";
+import MusicPlayer from "@/features/music/components/player";
 
 // Pages
 import CountdownTimer from "./page/CountdownTimer";
@@ -51,7 +52,9 @@ function App() {
 
 	// Music States
 	const [url, setUrl] = useState<string>("");
-	const [, setPlayLink] = useState<string | null>(null);
+	const [mute, setMute] = useState(true);
+	const [play, setPlay] = useState<boolean>(true);
+	const [playLink, setPlayLink] = useState<string | null>(null);
 
 	useEffect(() => {
 		const storedCountdown = localStorage.getItem("countdown");
@@ -102,10 +105,8 @@ function App() {
 			}}
 		>
 			<div
-				className={`${
-					browserWidth > 960 &&
-					hiddenNavbar &&
-					"top-[2%] -translate-y-full"
+				className={`${browserWidth < 961 && hiddenNavbar && "!top-[3%]"} ${
+					hiddenNavbar && "top-[2%] -translate-y-full"
 				} navbar-container absolute h-[64px] w-full transition-transform duration-500 ease-in-out`}
 			>
 				<Menu
@@ -127,7 +128,20 @@ function App() {
 			</div>
 
 			{/* <BackgroundMusicPlayer /> */}
-			<MusicFloatingActionButton />
+
+			<MusicPlayer
+				playLink={playLink}
+				play={play}
+				mute={mute}
+				setPlayLink={setPlayLink}
+			/>
+
+			<MusicFloatingActionButton
+				mute={mute}
+				play={play}
+				setMute={setMute}
+				setPlay={setPlay}
+			/>
 
 			{/* Update Countdown Modal */}
 			<UpdateTimerModal

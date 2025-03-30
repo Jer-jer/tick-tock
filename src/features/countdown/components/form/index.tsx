@@ -69,7 +69,6 @@ export default function CountdownForm({
 		}
 	};
 
-	//TODO Only update the state here
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		let newCountdown: string;
@@ -84,11 +83,13 @@ export default function CountdownForm({
 			newCountdown = formatTargetDate(month, year, day, time);
 			setCountdown(newCountdown);
 			localStorage.setItem("countdown", newCountdown);
+			setShowUpdateTimerModal(false);
 		} else if (date) {
 			const newDate = new Date(date);
 			newCountdown = newDate.toISOString();
 			setCountdown(newCountdown);
 			localStorage.setItem("countdown", newCountdown);
+			setShowUpdateTimerModal(false);
 		}
 	};
 	return (
@@ -112,7 +113,6 @@ export default function CountdownForm({
 					</div>
 				</div>
 
-				{/* //TODO: Add Zod and React Hook Forms */}
 				<div className="flex flex-col justify-start items-start gap-5 w-full timer-form">
 					{switchCalendar ? (
 						<div className="flex flex-row items-center gap-2">
@@ -179,13 +179,6 @@ export default function CountdownForm({
 					)}
 				</div>
 
-				{/* //TODO Maybe or maybe not add this */}
-				{/* <div className="flex flex-row justify-start items-center gap-5 countdown-location-form">
-                                 <div className="flex flex-row items-center gap-2">
-                                    <label htmlFor="date">Location:</label>
-                                    <InputText type="text" name="location" />
-                                 </div>
-                           </div> */}
 				<div className="flex flex-row justify-end items-center gap-5 w-full">
 					<Button
 						className="bg-violet px-[1.25rem] py-[0.75rem] h-[40px] text-white"

@@ -70,6 +70,14 @@ function Controls(
 				</div>
 			),
 		},
+		{
+			label: "Remove Music",
+			icon: "pi pi-times",
+			command: () => {
+				localStorage.removeItem("music");
+				window.location.reload();
+			},
+		},
 	];
 
 	return controlItems;

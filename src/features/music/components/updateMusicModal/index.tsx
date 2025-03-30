@@ -23,8 +23,16 @@ export default function UpdateMusic({
 }: UpdateMusicProps) {
 	const handleMusicChange = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		setPlayLink(url);
-		localStorage.setItem("music", url);
+
+		// Clear current player first
+		setPlayLink(null);
+
+		// Small delay to ensure player unmounts before new URL loads
+		setTimeout(() => {
+			setPlayLink(url);
+			localStorage.setItem("music", url);
+			setShowUpdateMusicModal(false);
+		}, 50);
 	};
 
 	return (
@@ -34,10 +42,7 @@ export default function UpdateMusic({
 			position="top"
 			draggable={false}
 			visible={showUpdateMusicModal}
-			onHide={() => {
-				if (!showUpdateMusicModal) return;
-				setShowUpdateMusicModal(false);
-			}}
+			onHide={() => setShowUpdateMusicModal(false)}
 		>
 			<form onSubmit={handleMusicChange}>
 				<div className="flex flex-row items-center max-w-full max-h-[40px] music-url-container">
@@ -52,7 +57,6 @@ export default function UpdateMusic({
 						className="bg-violet px-[0.75rem] py-[0.5rem] w-fit h-fit text-white music-save-button"
 						label="Save"
 						type="submit"
-						onClick={() => setShowUpdateMusicModal(false)}
 						autoFocus
 					/>
 				</div>

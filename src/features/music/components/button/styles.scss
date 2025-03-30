@@ -1,5 +1,6 @@
 .speeddial-container {
    all: unset;
+   margin-right: 58px;
 
    .p-speeddial-button {
       background-color: theme('colors.violet');
@@ -12,5 +13,10 @@
 
    .p-speeddial-list {
       gap: 10px;
+
+      .p-speeddial-action {
+         background-color: theme('colors.violet');
+         color: white;
+      }
    }
 }

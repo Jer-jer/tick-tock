@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
+// Components
+import { Button } from "primereact/button";
 import Modal from "@/common/components/modal";
 import CountdownForm from "@/features/countdown/components/form";
 
@@ -42,9 +44,27 @@ export default function UpdateTimer({
 	setTime,
 	setCountdown,
 }: UpdateTimerProps) {
+	const resetCountdown = () => {
+		setCountdown("");
+		localStorage.removeItem("countdown");
+		localStorage.removeItem("timeLeft");
+	};
+
+	const DialogHeader = () => (
+		<div className="flex md:flex-row flex-col items-start md:items-end md:gap-4">
+			<span>Update Countdown</span>
+			<Button
+				className="hover:bg-transparent p-0 pb-[0.3rem] font-light text-violet text-xs"
+				label="Reset countdown"
+				text
+				onClick={resetCountdown}
+			/>
+		</div>
+	);
+
 	return (
 		<Modal
-			header="Update Countdown"
+			header={<DialogHeader />}
 			position="top"
 			draggable={false}
 			visible={showUpdateTimerModal}

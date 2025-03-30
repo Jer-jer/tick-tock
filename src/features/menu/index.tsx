@@ -1,4 +1,5 @@
-import { SetStateAction, Dispatch } from "react";
+import { useEffect, SetStateAction, Dispatch } from "react";
+import $ from "jquery";
 
 //Components
 import { Menubar } from "primereact/menubar";
@@ -55,6 +56,7 @@ export default function Menu({
 		<>
 			<div
 				title="Close Menu"
+				id="close-icon"
 				className={`${
 					!hiddenNavbar && "bg-white"
 				} left-[48.55%] absolute top-[64%] flex justify-center items-center rounded-full w-11 h-11 cursor-pointer nav-collapse-button`}
@@ -74,7 +76,7 @@ export default function Menu({
 
 			<Menubar
 				className={`${
-					browserWidth > 960 && hiddenNavbar && "-top-[100%]"
+					hiddenNavbar && "-top-[100%]"
 				} absolute justify-center bg-white rounded-none border-none w-full`}
 				model={items}
 			/>

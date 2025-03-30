@@ -48,64 +48,73 @@ export default function CountdownTimer({
 	const [isTabActive, setIsTabActive] = useState<boolean>(true);
 	const [timeLeft, setTimeLeft] = useState(getTimeRemaining(targetDate));
 
-	/** TAB VISIBILITY HANDLER **/
+	/** TAB VISIBILITY AND TITLE HANDLER **/
 	useEffect(() => {
-		// Set the initial title when the component mounts
-		document.title = "TickTock";
-
-		// Listen for visibility changes
 		const handleVisibilityChange = () => {
-			setIsTabActive(!document.hidden);
+			const isNowActive = !document.hidden;
+			setIsTabActive(isNowActive);
+
+			// Update title immediately when visibility changes
+			if (isNowActive) {
+				document.title = "TickTock";
+			} else {
+				document.title =
+					timeLeft.total > 0
+						? `${timeLeft.days}:${timeLeft.hours}:${timeLeft.minutes}:${timeLeft.seconds}`
+						: "TickTock";
+			}
 		};
 
-		// Update the title when the tab is inactive
-		if (!isTabActive) {
-			document.title =
-				timeLeft.total > 0
-					? `${timeLeft.days}:${timeLeft.hours}:${timeLeft.minutes}:${timeLeft.seconds}`
-					: "TickTock";
-		}
+		// Set initial title
+		document.title = "TickTock";
 
-		// Attach event listener for visibility change
 		document.addEventListener("visibilitychange", handleVisibilityChange);
-
-		// Cleanup event listener on component unmount
 		return () => {
 			document.removeEventListener(
 				"visibilitychange",
 				handleVisibilityChange
 			);
 		};
-	}, [timeLeft, isTabActive]);
+	}, [timeLeft]); // Add timeLeft as dependency
 
+	/** Update title when timeLeft changes and tab is inactive */
 	useEffect(() => {
-		const timeLeft = localStorage.getItem("timeLeft");
-		if (timeLeft) {
-			setTimeLeft(JSON.parse(timeLeft));
+		if (!isTabActive) {
+			document.title =
+				timeLeft.total > 0
+					? `${timeLeft.days}:${timeLeft.hours}:${timeLeft.minutes}:${timeLeft.seconds}`
+					: "TickTock";
 		}
-	}, []);
+	}, [timeLeft, isTabActive]);
 
 	/** MAIN COUNTDOWN TIMER **/
 	useEffect(() => {
+		// Immediately update timeLeft when targetDate changes
+		const initialTime = getTimeRemaining(targetDate);
+		setTimeLeft(initialTime);
+		localStorage.setItem("timeLeft", JSON.stringify(initialTime));
+
 		const interval = Worker.setInterval(() => {
 			const newTime = getTimeRemaining(targetDate);
 			localStorage.setItem("timeLeft", JSON.stringify(newTime));
 			setTimeLeft(newTime);
-
-			if (timeLeft.total <= 0) {
-				Worker.clearInterval(interval);
-			}
 		}, 10);
 
 		return () => Worker.clearInterval(interval);
 	}, [targetDate]);
 
+	// Load saved time from localStorage
+	useEffect(() => {
+		const savedTime = localStorage.getItem("timeLeft");
+		if (savedTime) {
+			setTimeLeft(JSON.parse(savedTime));
+		}
+	}, []);
+
 	return (
 		<div
 			className={`mt-[4.8%] countdown-font`}
-			style={{
-				color: countdownFontColor,
-			}}
+			style={{ color: countdownFontColor }}
 		>
 			{timeLeft.total > 0 ? (
 				<div className="flex justify-center items-center w-fit transition-all duration-700 ease-in-out">

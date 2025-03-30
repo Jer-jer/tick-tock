@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2024-03-30
+
+### Minor changes
+
+- Adjusted issue in countdown timer where it needed to be refreshed to update
+- Added a reset countdown functionality (Sadly it only refreshes the page after removing the local storage)
+- Added a remove music functionality
+- Fixed music change issues
+- Improved navbar to be able to be hidden on mobile
+
 ## [1.0.0] - 2024-03-30
 
 ### Major changes
