@@ -112,7 +112,6 @@ function App() {
 				<Menu
 					hiddenNavbar={hiddenNavbar}
 					handleNavbarDisplay={handleNavbarDisplay}
-					browserWidth={browserWidth}
 					setShowUpdateTimerModal={setShowUpdateTimerModal}
 					setShowChangeBgModal={setShowChangeBgModal}
 					setShowUpdateMusicModal={setShowUpdateMusicModal}

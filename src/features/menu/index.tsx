@@ -1,5 +1,4 @@
-import { useEffect, SetStateAction, Dispatch } from "react";
-import $ from "jquery";
+import { SetStateAction, Dispatch } from "react";
 
 //Components
 import { Menubar } from "primereact/menubar";
@@ -13,7 +12,6 @@ import "./styles.scss";
 
 interface MenuProps {
 	hiddenNavbar: boolean;
-	browserWidth: number;
 	countdownFontColor: string;
 	setShowUpdateTimerModal: Dispatch<SetStateAction<boolean>>;
 	setShowChangeBgModal: Dispatch<SetStateAction<boolean>>;
@@ -24,7 +22,6 @@ interface MenuProps {
 
 export default function Menu({
 	hiddenNavbar,
-	browserWidth,
 	countdownFontColor,
 	setShowUpdateTimerModal,
 	setShowChangeBgModal,
