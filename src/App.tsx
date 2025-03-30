@@ -51,7 +51,7 @@ function App() {
 
 	// Music States
 	const [url, setUrl] = useState<string>("");
-	const [playLink, setPlayLink] = useState<string | null>(null);
+	const [, setPlayLink] = useState<string | null>(null);
 
 	useEffect(() => {
 		const storedCountdown = localStorage.getItem("countdown");
