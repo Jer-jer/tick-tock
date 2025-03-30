@@ -1,0 +1,16 @@
+.speeddial-container {
+   all: unset;
+
+   .p-speeddial-button {
+      background-color: theme('colors.violet');
+      margin-top: 20px;
+
+      .p-icon {
+         color: white;
+      }
+   }
+
+   .p-speeddial-list {
+      gap: 10px;
+   }
+}

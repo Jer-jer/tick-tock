@@ -1,6 +1,11 @@
+.mute {
+    background-color: theme('colors.violet');
+    border-radius: 100%;
+}
+
 .mute-container {
-    --color: theme('colors.violet');
-    --size: 30px;
+    --color: theme('colors.white');
+    --size: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,45 +15,106 @@
     -webkit-user-select: none;
     user-select: none;
     fill: var(--color);
-}
+    padding: 25px;
 
-.mute-container .mute {
-    position: absolute;
-    display: none;
-    animation: keyframes-fill .5s;
-}
-
-.mute-container .voice {
-    position: absolute;
-    animation: keyframes-fill .5s;
-}
-
-/* ------ On check event ------ */
-.mute-container input:checked~.mute {
-    display: block;
-}
-
-.mute-container input:checked~.voice {
-    display: none;
-}
-
-/* ------ Hide the default checkbox ------ */
-.mute-container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-/* ------ Animation ------ */
-@keyframes keyframes-fill {
-    0% {
-        transform: rotate(0deg) scale(0);
-        opacity: 0;
+    .mute {
+        position: absolute;
+        display: none;
+        animation: keyframes-fill .5s;
     }
 
-    50% {
-        transform: rotate(-10deg) scale(1.2);
+    .voice {
+        position: absolute;
+        animation: keyframes-fill .5s;
+    }
+
+    /* ------ On check event ------ */
+    input:checked~.mute {
+        display: block;
+    }
+
+    input:checked~.voice {
+        display: none;
+    }
+
+    /* ------ Hide the default checkbox ------ */
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    @keyframes keyframes-fill {
+        0% {
+            transform: rotate(0deg) scale(0);
+            opacity: 0;
+        }
+
+        50% {
+            transform: rotate(-10deg) scale(1.2);
+        }
+    }
+}
+
+.play-pause {
+    background-color: theme('colors.violet');
+    border-radius: 100%;
+
+    .play-pause-container {
+        --color: theme('colors.white');
+        --size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+        font-size: var(--size);
+        -webkit-user-select: none;
+        user-select: none;
+        fill: var(--color);
+        padding: 25px;
+
+        .play {
+            position: absolute;
+            animation: keyframes-fill .5s;
+        }
+
+        .pause {
+            position: absolute;
+            display: none;
+            animation: keyframes-fill .5s;
+        }
+
+        /* ------ On check event ------ */
+        input:checked~.play {
+            display: none;
+        }
+
+        input:checked~.pause {
+            display: block;
+        }
+
+        /* ------ Hide the default checkbox ------ */
+        input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        /* ------ Animation ------ */
+        @keyframes keyframes-fill {
+            0% {
+                transform: rotate(-180deg) scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: rotate(-10deg) scale(1.2);
+            }
+        }
     }
 }

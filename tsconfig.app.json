@@ -30,7 +30,8 @@
 			"@/background/*": ["./src/features/background/*"],
 			"@/countdown/*": ["./src/features/countdown/*"],
 			"@/menu/*": ["./src/features/menu/*"],
-			"@/music/*": ["./src/features/music/*"]
+			"@/music/*": ["./src/features/music/*"],
+			"@/assets/*": ["./src/assets/*"]
 		}
 	},
 	"include": ["src"]

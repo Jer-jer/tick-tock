@@ -6,7 +6,6 @@ import { IPixabayVideo } from "@/features/background/interfaces";
 // Components
 import Modal from "@/common/components/modal";
 import ImagesGrid from "@/features/background/components/imagesGrid";
-import VideosGrid from "@/features/background/components/videosGrid";
 import ColorWheel from "@/features/background/components/colorWheel";
 import { TabView, TabPanel } from "primereact/tabview";
 import { Button } from "primereact/button";
@@ -75,9 +74,6 @@ export default function UpdateBgModal({
 				<TabView>
 					<TabPanel header="Image">
 						<ImagesGrid />
-					</TabPanel>
-					<TabPanel header="Video">
-						<VideosGrid />
 					</TabPanel>
 					<TabPanel header="Color">
 						<ColorWheel />

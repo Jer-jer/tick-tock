@@ -5,11 +5,13 @@ import ReactPlayer from "react-player";
 interface MusicPlayerProps {
 	playLink: string | null;
 	mute: boolean;
+	play: boolean;
 	setPlayLink: Dispatch<SetStateAction<string | null>>;
 }
 
 export default function MusicPlayer({
 	playLink,
+	play,
 	mute,
 	setPlayLink,
 }: MusicPlayerProps) {
@@ -33,7 +35,7 @@ export default function MusicPlayer({
 						},
 					}}
 					url={playLink}
-					playing={true}
+					playing={play}
 					loop={true}
 					volume={1}
 					muted={mute}

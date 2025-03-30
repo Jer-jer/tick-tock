@@ -5,12 +5,11 @@ import { Nullable } from "primereact/ts-helpers";
 import { IPixabayVideo } from "@/features/background/interfaces";
 
 // Components
+import MusicFloatingActionButton from "@/features/countdown/components/musicButton";
 import Menu from "@/features/menu";
-import Mute from "@/features/music/components/controls";
 import UpdateTimerModal from "@/features/countdown/components/updateTimerModal";
 import UpdateMusicModal from "@/features/music/components/updateMusicModal";
 import UpdateBgModal from "@/features/background/components/updateBgModal";
-import MusicPlayer from "@/features/music/components/player";
 
 // Pages
 import CountdownTimer from "./page/CountdownTimer";
@@ -53,8 +52,6 @@ function App() {
 	// Music States
 	const [url, setUrl] = useState<string>("");
 	const [playLink, setPlayLink] = useState<string | null>(null);
-	const [mute, setMute] = useState(true);
-	const [isPaused, setIsPaused] = useState<boolean>(false);
 
 	useEffect(() => {
 		const storedCountdown = localStorage.getItem("countdown");
@@ -130,22 +127,7 @@ function App() {
 			</div>
 
 			{/* <BackgroundMusicPlayer /> */}
-			<MusicPlayer
-				playLink={playLink}
-				mute={mute}
-				setPlayLink={setPlayLink}
-			/>
-			{/* //TODO Add more music Functionalities */}
-			<div className="flex justify-end items-center music-container">
-				<div className="flex justify-center items-center cursor-pointer music-button">
-					<span>
-						<Mute
-							isMuted={mute}
-							handleMute={() => setMute(!mute)}
-						/>
-					</span>
-				</div>
-			</div>
+			<MusicFloatingActionButton />
 
 			{/* Update Countdown Modal */}
 			<UpdateTimerModal

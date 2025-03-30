@@ -9,7 +9,7 @@ Built and Powered by ![Vite+React](https://media.dev.to/cdn-cgi/image/width=1080
 
 - Set a countdown timer as far as December 31, 2100
 - Add a background music in your countdown via Youtube and Spotify
-- Set a background for your countdown (.mp4 and .gif)
+- Set a color or image background background for your countdown
 - See the timer on the tab when it is not active
 - Set the font style via Google Fonts
 - Light and Dark modes
@@ -18,6 +18,10 @@ Built and Powered by ![Vite+React](https://media.dev.to/cdn-cgi/image/width=1080
 Of all the countdown sites I've ventured, I haven't encountered one where it doesn't overwhelm the user with inputs, have music and non-static background. I want to create an event countdown timer that user can immediately tell where to set their countdown, set a background music they wish and background that symbolizes the upcoming event.
 
 My background music and background are resource efficient and will not slow your computer down.
+
+## Credits
+
+A BIG SHOUTOUT TO PEXELS FOR THEIR APIs AND ALL THE PHOTOGRAPHERS IN THE WEB APP FOR THEIR BEAUTIFUL WORKS!
 
 ## License
 
