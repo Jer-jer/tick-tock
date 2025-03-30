@@ -5,5 +5,5 @@ import tsconfigPaths from "vite-tsconfig-paths";
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [tsconfigPaths(), react()],
-	base: "/tick-tock/",
+	base: "https://jer-jer.github.io/tick-tock/",
 });
